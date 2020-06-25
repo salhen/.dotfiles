@@ -142,3 +142,5 @@ fi
 #      ﰣ
 export PS1="\n ${COLOR1}\u${NC}${COLOR2}\h:${NC}\W ${COLOR2}]${NC} "
 # --------------------------- CONFIG PROMPT & DISPLAY LOGIN INFO STOP
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
