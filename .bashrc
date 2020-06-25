@@ -47,7 +47,7 @@ alias cds='cd ~/.config/polybar/scripts'	# Quickly jump my polybar scripts folde
 alias gitexec='/usr/bin/git --git-dir=/home/tibegato/.dotfiles/ --work-tree=$HOME'
 alias gitadd="gitexec add"
 alias gitcommit="gitexec commit -m"
-alias gitpush="gitexec push origin master"
+alias gitpush="gitexec push --force origin master"
 # --------------------------- ALIASES STOP
 
 # --------------------------- HISTORY START
