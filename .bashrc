@@ -14,8 +14,6 @@ echo ''<<LICENSE
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 LICENSE
 
-# This isn't going to work
-
 [[ $- != *i* ]] && return
 
 # --------------------------- ALIASES START
