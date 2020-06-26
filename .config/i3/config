@@ -199,31 +199,32 @@ bindsym $mod+Shift+c exec $editor ~/.config/polybar/config.ini
 
 # enable floating mode for certain windows
 for_window [class="Alacritty"] floating enable
-for_window [class="x-terminal-emulator"] floating enable
-for_window [class="XTerm"] floating enable
-for_window [class="konsole"] floating enable
-for_window [class="Feren-store.py"] floating enable
-for_window [class="Snap-store"] floating enable
-for_window [class="MintUpdate.py"] floating enable
-for_window [class="ghostwriter"] floating enable
-for_window [class="kate"] floating enable
-for_window [class="Nemo"] floating enable
-for_window [class="mpv"] floating enable
 for_window [class="ark"] floating enable
-for_window [class="vlc"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Sonata"] floating enable
-for_window [class="GParted"] floating enable
-for_window [class="Nautilus"] floating enable
 for_window [class="feh"] floating enable
-for_window [class="ksysguard"] floating enable
-for_window [class="kinfocenter"] floating enable
-for_window [class="systemsettings"] floating enable
-for_window [class="strawberry"] floating enable
+for_window [class="Feren-store.py"] floating enable
+for_window [class="Gdebi-gtk"] floating enabled
+for_window [class="Gedit"] floating enabled
+for_window [class="ghostwriter"] floating enable
 for_window [class="Gnome-calculator"] floating enabled
+for_window [class="GParted"] floating enable
+for_window [class="kate"] floating enable
+for_window [class="kinfocenter"] floating enable
+for_window [class="konsole"] floating enable
+for_window [class="ksysguard"] floating enable
+for_window [class="MintUpdate.py"] floating enable
+for_window [class="mpv"] floating enable
+for_window [class="Nautilus"] floating enable
+for_window [class="Nemo"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Snap-store"] floating enable
+for_window [class="Sonata"] floating enable
+for_window [class="strawberry"] floating enable
+for_window [class="systemsettings"] floating enable
 for_window [class="VirtualBox Manager"] floating enabled
 for_window [class="VirtualBox Machine"] floating enabled
-for_window [class="Gdebi-gtk"] floating enabled
+for_window [class="vlc"] floating enable
+for_window [class="x-terminal-emulator"] floating enable
+for_window [class="XTerm"] floating enable
 
 # resize specific windows
 for_window [class="Alacritty"] resize set 900 500
