@@ -33,7 +33,6 @@ floating_modifier $mod
 #font pango:System San Francisco Display 10
 font pango:Ubuntu Mono 10
 
-
 # Change the system default terminal, with the following:
 # sudo update-alternatives --config x-terminal-emulator
 # start a terminal
@@ -232,6 +231,8 @@ for_window [class="konsole"] resize set 900 500
 for_window [class="x-terminal-emulator"] resize set 900 500
 for_window [class="XTerm"] resize set 900 500
 
+for_window [class="Netflix"] move container to workspace 9
+
 focus_follows_mouse no
 
 show_marks yes
@@ -246,7 +247,7 @@ bindsym $mod+Tab exec ~/.config/polybar/scripts/windowselector.sh &
 bindsym $mod+u exec i3-sensible-terminal -e ~/.config/polybar/scripts/systemupdate.sh &
 
 # open an empty window container
-bindsym $mod+z exec i3-msg open
+#bindsym $mod+z exec i3-msg open
 
 # Take a screenshot
 bindsym Print exec spectacle &
@@ -267,3 +268,5 @@ exec --no-startup-id nm-applet &
 # sudo apt install policykit-desktop-privileges
 # sudo apt install policykit-1-gnome
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+exec --no-startup-id google-chrome --class=Netflix https://www.netflix.com &
