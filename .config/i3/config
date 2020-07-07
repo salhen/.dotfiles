@@ -238,7 +238,7 @@ focus_follows_mouse no
 show_marks yes
 
 # power options
-bindsym $mod+Shift+e exec ~/.config/polybar/scripts/power.sh &
+bindsym $mod+p exec ~/.config/polybar/scripts/power.sh &
 
 # window selector
 bindsym $mod+Tab exec ~/.config/polybar/scripts/windowselector.sh &
@@ -273,5 +273,5 @@ exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agen
 # you open while this instance is open, will have the class name Netflix.
 # exec --no-startup-id google-chrome --class=Netflix https://www.netflix.com &
 
-exec --no-startup-id google-chrome https://www.netflix.com &
+exec --no-startup-id google-chrome https://www.netflix.com&
 exec --no-startup-id ~/.config/polybar/scripts/netflixit.sh
