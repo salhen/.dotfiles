@@ -16,11 +16,14 @@ LICENSE
 
 # System menu - MacOS like - Just started making this.  So ... this script will change a bunch.
 
- BORDER="#ff6347"
+BORDER="#ff6347"
 SEPARATOR="#1F1F1F"
 FOREGROUND="#ffffff"
-BACKGROUND="#546e7a"
-HIGHLIGHT_BACKGROUND="#ff9147"
+BACKGROUND="#ff6347"
+# BACKGROUND="#546e7a"
+# HIGHLIGHT_BACKGROUND="#ff9147"
+HIGHLIGHT_BACKGROUND="#ffffff"
+HIGHLIGHT_FOREGROUND="#000000"
 
 about="About This Computer..."
 settings="System Preferences..."
@@ -33,7 +36,7 @@ logout="Log Out"
 
 options="$about\n$sep\n$settings\n$store\n$sep\n$monitor\n$sep\n$restart\n$shutdown\n$logout"
 
-chosen="$(echo -e"$options" | rofi -i -p "System" -dmenu -selected-row 0 \
+chosen="$(echo "$options" | rofi -i -p "System" -dmenu -selected-row 0 \
 -hide-scrollbar true \
 -location 1 \
 -xoffset 0 -yoffset 18 \
@@ -42,9 +45,9 @@ chosen="$(echo -e"$options" | rofi -i -p "System" -dmenu -selected-row 0 \
 -padding 6 \
 -font "Ubuntu Mono 10" \
 -color-window "$BACKGROUND,$BORDER,$SEPARATOR" \
--color-normal "$BACKGROUND,$FOREGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$FOREGROUND" \
--color-active "$BACKGROUND,$BACKGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$FOREGROUND" \
--color-urgent "$BACKGROUND,$BACKGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$FOREGROUND" \
+-color-normal "$BACKGROUND,$FOREGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
+-color-active "$BACKGROUND,$BACKGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
+-color-urgent "$BACKGROUND,$BACKGROUND,$BACKGROUND,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
 -color-enabled true)"
 
 case $chosen in
