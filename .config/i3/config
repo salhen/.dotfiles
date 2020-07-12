@@ -164,7 +164,7 @@ client.background		$bg-color
 
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -nb black -sb tomato
+bindsym $mod+d exec dmenu_run -nb black -sb tomato -fn 'System San Francisco Display:size=10'
 
 # kill focused window
 # bindsym $mod+Shift+q kill
