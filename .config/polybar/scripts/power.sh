@@ -23,7 +23,7 @@ logout
 reboot
 shutdown")
 
-choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'System:' -nb black -sb tomato)
+choice=$(echo -e "${options[@]}" | dmenu -l -i -p 'System:' -nb black -sb tomato -fn 'System San Francisco Display:size=10')
 
 #'Shutdown' 'systemctl poweroff' -b 'Reboot' 'systemctl reboot' -b 'Logout' 'i3-msg exit'"
 
