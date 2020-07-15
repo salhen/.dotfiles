@@ -14,7 +14,6 @@
 
 import i3ipc
 import re
-import getpass
 import sys
 
 def get_window_info(e):
@@ -47,11 +46,8 @@ def to_CamelCase(str):
 
 def on_window_title(i3, e):
     print(get_window_info(e))
-
     
 i3 = i3ipc.Connection()
-
-user = getpass.getuser()
 
 i3.on("window::focus", on_window_title)
 i3.on("window::title", on_window_title)
