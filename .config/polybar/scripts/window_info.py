@@ -16,7 +16,24 @@ import i3ipc
 import re
 import sys
 
+# Arguments
+#
+# application - Tells the script we just want the foreground windows "application" classname
+# title - Tells the script we just want the foreground windows' title minus it's classname
+#
+# if neither is given, it should just default to returning "application" + title 
+#
+# Now, I need to add OPTIONAL color arguments. Up to 4 different ones.  Polybar allows you to add
+# formatting text to the label you want to display.  Right now, I have the application text
+# and window text different colors.
+#
+# background    foreground  background  foreground
+# #ff9147       #ffffff     #e69e6e     #ffffff
+
 def get_window_info(e):
+#    Test returning formatted text
+#    return "%{F#f00} red text %{F-}"
+
     focused_window = i3.get_tree().find_focused()
     
     if (focused_window.window_class is None): return ''
