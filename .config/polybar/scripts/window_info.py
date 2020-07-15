@@ -24,10 +24,7 @@ def get_window_info(e):
     if (len(sys.argv) > 1) and (sys.argv[1] == 'application'):
     	return to_CamelCase(focused_window.window_class)
     
-    title = stripClassFromTitle(title)
-    
-    title = title.replace('/home/{}'.format(user), '~')
-    title = re.sub(r'@.*:', ':', title)
+    title = stripClassFromTitle(focused_window.window_title)
     
     if (len(sys.argv) > 1) and (sys.argv[1] == 'title'): return title
 
@@ -37,8 +34,8 @@ def stripClassFromTitle(title):
 	idx = None
 	
 	for i in range(len(title)): 
-	    if (title[i] == '-') or (title[i] == '—'): idx = i
-	        
+	    if (title[i] in ['-','—']): idx = i
+	    	        
 	return title[:idx]
 
 def to_CamelCase(str):
