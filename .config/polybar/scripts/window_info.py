@@ -23,7 +23,7 @@ def get_window_info(e):
     if (focused_window.window_class is None): return ''
     
     if (len(sys.argv) > 1) and (sys.argv[1] == 'application'):
-    	return to_camelcase(focused_window.window_class)
+    	return to_CamelCase(focused_window.window_class)
     
     title = stripClassFromTitle(title)
     
@@ -32,7 +32,7 @@ def get_window_info(e):
     
     if (len(sys.argv) > 1) and (sys.argv[1] == 'title'): return title
 
-    return to_camelcase(focused_window.window_class) + ': ' + title
+    return to_CamelCase(focused_window.window_class) + ': ' + title
 
 def stripClassFromTitle(title):    
 	idx = None
@@ -42,7 +42,7 @@ def stripClassFromTitle(title):
 	        
 	return title[:idx]
 
-def to_camelcase(str):
+def to_CamelCase(str):
     return ' '.join([t.title() for t in str.split()])
 
 def on_window_title(i3, e):
