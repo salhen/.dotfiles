@@ -23,12 +23,11 @@ import sys
 #
 # if neither is given, it should just default to returning "application" + title 
 #
-# Now, I need to add OPTIONAL color arguments. Up to 4 different ones.  Polybar allows you to add
-# formatting text to the label you want to display.  Right now, I have the application text
-# and window text different colors.
+# Now, I need to add OPTIONAL color arguments. Up to 4 different ones, could get supplied.
+# Polybar allows you to add formatting text to the label you want to display. Right now,
+# I have the application text and window text different colors.
 #
-# background    foreground  background  foreground
-# #ff9147       #ffffff     #e69e6e     #ffffff
+# Example : https://github.com/tobeypeters/.dotfiles/blob/master/images/currentdesktop3.png
 
 def get_window_info(e):
 #    Test returning formatted text
