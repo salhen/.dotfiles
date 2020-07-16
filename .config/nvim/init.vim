@@ -33,6 +33,7 @@ call plug#begin("~/.config/nvim/autoload/plugged")
   Plug 'itchyny/lightline.vim'
 
   Plug 'jeetsukumaran/vim-pythonsense'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Automatically install missing plugins on startup
@@ -123,3 +124,5 @@ set undofile
 set wildmenu
 
 colorscheme dark_plus
+
+let g:coc_disable_startup_warning = 1
