@@ -31,6 +31,8 @@ call plug#begin("~/.config/nvim/autoload/plugged")
   Plug 'junegunn/fzf.vim'
     
   Plug 'itchyny/lightline.vim'
+
+  Plug 'jeetsukumaran/vim-pythonsense'
 call plug#end()
 
 " Automatically install missing plugins on startup
