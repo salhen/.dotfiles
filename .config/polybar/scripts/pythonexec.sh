@@ -18,4 +18,4 @@ LICENSE
 
 # Executes a specified python script
 
-python3 -u $1 $2
+python3 -u $1 $2 $3 $4 $5 $6 $7

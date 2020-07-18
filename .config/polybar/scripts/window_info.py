@@ -16,37 +16,66 @@ import i3ipc
 import re
 import sys
 
-# Arguments
+# Get the Application "classname", Title or both, of the current foreground window.
+
+# Arguments - ALL OPTIONAL
 #
-# application - Tells the script we just want the foreground windows "application" classname
-# title - Tells the script we just want the foreground windows' title minus it's classname
+# argument #1:
+#   Specified: application or title
+# Description:
+#              application - Tells the script we just want the foreground windows "application" classname
+#              title - Tells the script we just want the foreground windows' title minus it's classname
+#     Default: if neither option is specified, application + title is returned.
 #
-# if neither is given, it should just default to returning "application" + title 
+# argument #2:
+#   Specified: application_colors
+# Description: The windows application "classname", will be displayed in polybar with the specified colors.
+#              
+#        Note: Both background and foreground colors must be provided. directly after applicaton_colors.
+#              Colors must be provide in hex format.
 #
-# Now, I need to add OPTIONAL color arguments. Up to 4 different ones, could get supplied.
-# Polybar allows you to add formatting text to the label you want to display. Right now,
-# I have the application text and window text different colors.
+# argument #3:
+#   Specified: title_colors
+# Description: The windows title, will be displayed in polybar with the specified colors.
+#        Note: Both background and foreground colors must be provided, directly after title_colors.
+#              Colors must be provide in hex format.
 #
-# Example : https://github.com/tobeypeters/.dotfiles/blob/master/images/currentdesktop3.png
+#       Usage:
+#              window_info.py application application_colors #ffffff #000000 title_colors #00ff00 #ffffff
+#              window_info.py title application_colors #ffffff #000000 title_colors #00ff00 #ffffff
+#              window_info.py application_colors #ffffff #000000 title_colors #00ff00 #ffffff
+#              window_info.py title_colors #00ff00 #ffffff
+#              window_info.py
+#
+#              etc ...
+#
+# Example output : https://github.com/tobeypeters/.dotfiles/blob/master/images/currentdesktop3.png
 
 def get_window_info(e):
-#    Test returning formatted text
-#    return "%{F#f00} red text %{F-}"
-
     focused_window = i3.get_tree().find_focused()
-    
+
     if (focused_window.window_class is None): return ''
-    
-    if (len(sys.argv) > 1) and (sys.argv[1] == 'application'):
-    	return to_CamelCase(focused_window.window_class)
-    
-    title = stripClassFromTitle(focused_window.window_title)
-    
-    if (len(sys.argv) > 1) and (sys.argv[1] == 'title'): return title
 
-    return to_CamelCase(focused_window.window_class) + ': ' + title
+    showApplication = ('application' in sys.argv)
+    showTitle = ('title' in sys.argv)
 
-def stripClassFromTitle(title):    
+    argOffset = 0 if (showApplication or showTitle) else -1
+    
+    if ('application_colors' in sys.argv):
+        application_text = formatText(to_CamelCase(focused_window.window_class), argOffset)
+        argOffset += 3
+
+    if ('title_colors' in sys.argv):
+        title_text = formatText(stripClassFromTitle(focused_window.window_title), argOffset)
+
+    if (showApplication): return application_text
+    if (showTitle): return title_text
+    
+    return ''.join([application_text, title_text])
+
+# Strip the classname from the end of window titles
+# Instead of "New Tab - Google-Chrome", we just want "New Tab"
+def stripClassFromTitle(title):
 	idx = None
 	
 	for i in range(len(title)): 
@@ -54,8 +83,23 @@ def stripClassFromTitle(title):
 	    	        
 	return title[:idx]
 
+# Make sure a specified string is in CamelCase format
 def to_CamelCase(str):
     return ' '.join([t.title() for t in str.split()])
+
+# Don't like glabal variables. So, I pass in argOffset
+def formatText(str, argoffset):
+    return ''.join(['%{B',
+                    sys.argv[3 + argoffset],
+                    '}',
+                    '%{F',
+                    sys.argv[4 + argoffset],
+                    '}',
+                    ' ',
+                    str,
+                    ' ',
+                    '%{B- F-}'
+                   ])
 
 def on_window_title(i3, e):
     print(get_window_info(e))
