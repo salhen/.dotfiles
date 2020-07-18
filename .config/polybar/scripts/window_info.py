@@ -18,7 +18,9 @@ import sys
 
 # Get the Application "classname", Title or both, of the current foreground window.
 
-# Arguments - ALL OPTIONAL
+# Arguments - ALL OPTIONAL BUT, IF SPECIFIED, THEY HAVE TO BE IN THE FOLLOWING ORDER:
+#             NOTE: I KNOW, THIS ISN'T A GOOD DESIGN. I HAVE AN IDEA TO MAKE IT 
+#                   MUCH SMARTER AND I MAY ALTER THIS SCRIPT LATER.
 #
 # argument #1:
 #   Specified: application or title
