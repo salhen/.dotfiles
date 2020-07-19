@@ -13,7 +13,6 @@
 #	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import i3ipc
-import re
 import sys
 import argparse
 
@@ -72,7 +71,7 @@ def stripClassFromTitle(title = str):
 
 # Make sure a specified string is in CamelCase format
 def to_CamelCase(camelStr = str):
-   return ''.join([t.title() for t in camelStr.split()])
+    return ''.join([t.title() for t in camelStr.split()])
 
 # Add background & foreground color formatting, to a specified string
 def formatText(formatStr = str, formatColors = []):
