@@ -74,7 +74,6 @@ def stripClassFromTitle(title = str):
 def to_CamelCase(str = str):
     return ''.join([t.title() for t in str.split()])
 
-
 # Add background & foreground color formatting, to a specified string
 def formatText(formatStr = str, formatColors = []):
     return ''.join(['%{B',
