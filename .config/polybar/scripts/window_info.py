@@ -17,30 +17,15 @@ import re
 import sys
 import argparse
 
-# Get the Application "classname", Title or both, of the current foreground window and
-# return the info back to polybar.
+# Gets the foreground windows' Application/classname, Title or both <default> of them and returns it
+# to our polybar module.
 
-# Arguments - ALL OPTIONAL
-#
-# argument #1:
-#   Specified: --application or --title
-# Description:
+# Arguments:
 #              --application - Tells the script we just want the foreground windows "application" classname
 #              --title - Tells the script we just want the foreground windows' title minus it's classname
-#     Default: if neither option is specified, application + title is returned.
 #
-# argument #2:
-#   Specified: --application_colors
-# Description: The windows application "classname", will be displayed in polybar with the specified colors.
-#              
-#        Note: Both background and foreground colors MUST be provided. directly after applicaton_colors.
-#              Colors must be provide in hex format.
-#
-# argument #3:
-#   Specified: --title_colors
-# Description: The windows title, will be displayed in polybar with the specified colors.
-#        Note: Both background and foreground colors MUST be provided, directly after title_colors.
-#              Colors must be provide in hex format.
+#              --application_colors - The Application will be displayed with the specified colors, both of which MUST be provided.
+#              --title_colors - The Title will be displayed with the specified colors, both of which MUST be provided.
 #
 #       Usage:
 #              window_info.py --application --application_colors #ffffff #000000 --title_colors #00ff00 #ffffff
@@ -48,8 +33,6 @@ import argparse
 #              window_info.py --application_colors #ffffff #000000 --title_colors #00ff00 #ffffff
 #              window_info.py --title_colors #00ff00 #ffffff
 #              window_info.py
-#
-#              etc ...
 #
 #   args_gist: https://gist.github.com/strager/e86e355cf8b9d60a0ff9b785506a34f9
 #
