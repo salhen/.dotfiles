@@ -44,13 +44,13 @@ def get_window_info(e):
     if (focused_window.window_class is None): return ''
 
     if not args.title:
-        application_text = hugWithSpaces(to_CamelCase(focused_window.window_class))
+        application_text = f' {to_CamelCase(focused_window.window_class)} '
         colors = args.application_colors
         if (colors):
             application_text = formatText(application_text, colors)
 
     if not args.application:
-        title_text = hugWithSpaces(stripClassFromTitle(focused_window.window_title))
+        title_text = f' {stripClassFromTitle(focused_window.window_title)} '
         colors = args.title_colors        
         if (colors):
             title_text = formatText(title_text, colors)
@@ -58,7 +58,7 @@ def get_window_info(e):
     if (args.application): return application_text
     if (args.title): return title_text
     
-    return ''.join([application_text, title_text])
+    return f'{application_text}{title_text}'
 
 # Strip the classname from the end of window titles
 # Instead of "New Tab - Google-Chrome", we just want "New Tab"
@@ -76,18 +76,7 @@ def to_CamelCase(str = str):
 
 # Add background & foreground color formatting, to a specified string
 def formatText(formatStr = str, formatColors = []):
-    return ''.join(['%{B',
-                    formatColors[0],
-                    '}',
-                    '%{F',
-                    formatColors[1],
-                    '}',
-                    formatStr,
-                    '%{B- F-}'
-                   ])
-
-def hugWithSpaces(str):
-    return ''.join([' ', str, ' '])
+    return f'%{{B{formatColors[0]}}}%{{F{formatColors[1]}}}{formatStr}%{{B- F-}}'
 
 def on_window_title(i3, e):
     print(get_window_info(e))
