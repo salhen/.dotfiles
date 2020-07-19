@@ -15,6 +15,7 @@
 import i3ipc
 import re
 import sys
+import argparse
 
 # Get the Application "classname", Title or both, of the current foreground window and
 # return the info back to polybar.
@@ -22,33 +23,35 @@ import sys
 # Arguments - ALL OPTIONAL
 #
 # argument #1:
-#   Specified: application or title
+#   Specified: --application or --title
 # Description:
-#              application - Tells the script we just want the foreground windows "application" classname
-#              title - Tells the script we just want the foreground windows' title minus it's classname
+#              --application - Tells the script we just want the foreground windows "application" classname
+#              --title - Tells the script we just want the foreground windows' title minus it's classname
 #     Default: if neither option is specified, application + title is returned.
 #
 # argument #2:
-#   Specified: application_colors
+#   Specified: --application_colors
 # Description: The windows application "classname", will be displayed in polybar with the specified colors.
 #              
 #        Note: Both background and foreground colors MUST be provided. directly after applicaton_colors.
 #              Colors must be provide in hex format.
 #
 # argument #3:
-#   Specified: title_colors
+#   Specified: --title_colors
 # Description: The windows title, will be displayed in polybar with the specified colors.
 #        Note: Both background and foreground colors MUST be provided, directly after title_colors.
 #              Colors must be provide in hex format.
 #
 #       Usage:
-#              window_info.py application application_colors #ffffff #000000 title_colors #00ff00 #ffffff
-#              window_info.py title application_colors #ffffff #000000 title_colors #00ff00 #ffffff
-#              window_info.py application_colors #ffffff #000000 title_colors #00ff00 #ffffff
-#              window_info.py title_colors #00ff00 #ffffff
+#              window_info.py --application --application_colors #ffffff #000000 --title_colors #00ff00 #ffffff
+#              window_info.py --title application_colors #ffffff #000000 --title_colors #00ff00 #ffffff
+#              window_info.py --application_colors #ffffff #000000 --title_colors #00ff00 #ffffff
+#              window_info.py --title_colors #00ff00 #ffffff
 #              window_info.py
 #
 #              etc ...
+#
+#   args_gist: https://gist.github.com/strager/e86e355cf8b9d60a0ff9b785506a34f9
 #
 # Example output : https://github.com/tobeypeters/.dotfiles/blob/master/images/currentdesktop3.png
 
@@ -57,31 +60,26 @@ def get_window_info(e):
 
     if (focused_window.window_class is None): return ''
 
-    args = sys.argv.copy()
-    args.pop(0)
-    
-    showApplication = ('application' in args)
-    showTitle = ('title' in args)
+    if not args.title:
+        application_text = hugWithSpaces(to_CamelCase(focused_window.window_class))
+        colors = args.application_colors
+        if (colors):
+            application_text = formatText(application_text, colors)
 
-    # Following .index() calls are safe, because the if statement makes sure it's there.
-    if not showTitle:
-        application_text = to_CamelCase(focused_window.window_class)
-        if ('application_colors' in args):
-            application_text = formatText(application_text, (args.index('application_colors') + 1))
-
-    if not showApplication:
-        title_text = stripClassFromTitle(focused_window.window_title)
-        if ('title_colors' in args):
-            title_text = formatText(title_text, (args.index('title_colors') + 1))
-
-    if (showApplication): return application_text
-    if (showTitle): return title_text
+    if not args.application:
+        title_text = hugWithSpaces(stripClassFromTitle(focused_window.window_title))
+        colors = args.title_colors        
+        if (colors):
+            title_text = formatText(title_text, colors)
+            
+    if (args.application): return application_text
+    if (args.title): return title_text
     
     return ''.join([application_text, title_text])
 
 # Strip the classname from the end of window titles
 # Instead of "New Tab - Google-Chrome", we just want "New Tab"
-def stripClassFromTitle(title):
+def stripClassFromTitle(title = str):
 	idx = None
 	
 	for i in range(len(title)): 
@@ -90,25 +88,34 @@ def stripClassFromTitle(title):
 	return title[:idx]
 
 # Make sure a specified string is in CamelCase format
-def to_CamelCase(str):
+def to_CamelCase(str = str):
     return ''.join([t.title() for t in str.split()])
 
+
 # Add background & foreground color formatting, to a specified string
-def formatText(str, argoffset):
+def formatText(formatStr = str, formatColors = []):
     return ''.join(['%{B',
-                    sys.argv[argoffset + 1],
+                    formatColors[0],
                     '}',
                     '%{F',
-                    sys.argv[argoffset + 2],
+                    formatColors[1],
                     '}',
-                    ' ',
-                    str,
-                    ' ',
+                    formatStr,
                     '%{B- F-}'
                    ])
 
+def hugWithSpaces(str):
+    return ''.join([' ', str, ' '])
+
 def on_window_title(i3, e):
     print(get_window_info(e))
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--application", action="store_true")
+parser.add_argument("--title", action="store_true")
+parser.add_argument("--application_colors", nargs=2)
+parser.add_argument("--title_colors", nargs=2)
+args = parser.parse_args()
     
 i3 = i3ipc.Connection()
 
