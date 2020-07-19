@@ -32,13 +32,13 @@ import sys
 #   Specified: application_colors
 # Description: The windows application "classname", will be displayed in polybar with the specified colors.
 #              
-#        Note: Both background and foreground colors must be provided. directly after applicaton_colors.
+#        Note: Both background and foreground colors MUST be provided. directly after applicaton_colors.
 #              Colors must be provide in hex format.
 #
 # argument #3:
 #   Specified: title_colors
 # Description: The windows title, will be displayed in polybar with the specified colors.
-#        Note: Both background and foreground colors must be provided, directly after title_colors.
+#        Note: Both background and foreground colors MUST be provided, directly after title_colors.
 #              Colors must be provide in hex format.
 #
 #       Usage:
@@ -57,15 +57,22 @@ def get_window_info(e):
 
     if (focused_window.window_class is None): return ''
 
-    showApplication = ('application' in sys.argv)
-    showTitle = ('title' in sys.argv)
+    args = sys.argv.copy()
+    args.pop(0)
+    
+    showApplication = ('application' in args)
+    showTitle = ('title' in args)
 
     # Following .index() calls are safe, because the if statement makes sure it's there.
-    if ('application_colors' in sys.argv):
-        application_text = formatText(to_CamelCase(focused_window.window_class), sys.argv.index('application_colors'))
+    if not showTitle:
+        application_text = to_CamelCase(focused_window.window_class)
+        if ('application_colors' in args):
+            application_text = formatText(application_text, (args.index('application_colors') + 1))
 
-    if ('title_colors' in sys.argv):
-        title_text = formatText(stripClassFromTitle(focused_window.window_title), sys.argv.index('title_colors'))
+    if not showApplication:
+        title_text = stripClassFromTitle(focused_window.window_title)
+        if ('title_colors' in args):
+            title_text = formatText(title_text, (args.index('title_colors') + 1))
 
     if (showApplication): return application_text
     if (showTitle): return title_text
