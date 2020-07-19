@@ -16,11 +16,10 @@ import i3ipc
 import re
 import sys
 
-# Get the Application "classname", Title or both, of the current foreground window.
+# Get the Application "classname", Title or both, of the current foreground window and
+# return the info back to polybar.
 
-# Arguments - ALL OPTIONAL BUT, IF SPECIFIED, THEY HAVE TO BE IN THE FOLLOWING ORDER:
-#             NOTE: I KNOW, THIS ISN'T A GOOD DESIGN. I HAVE AN IDEA TO MAKE IT 
-#                   MUCH SMARTER AND I MAY ALTER THIS SCRIPT LATER.
+# Arguments - ALL OPTIONAL
 #
 # argument #1:
 #   Specified: application or title
@@ -61,14 +60,12 @@ def get_window_info(e):
     showApplication = ('application' in sys.argv)
     showTitle = ('title' in sys.argv)
 
-    argOffset = 0 if (showApplication or showTitle) else -1
-    
+    # Following .index() calls are safe, because the if statement makes sure it's there.
     if ('application_colors' in sys.argv):
-        application_text = formatText(to_CamelCase(focused_window.window_class), argOffset)
-        argOffset += 3
+        application_text = formatText(to_CamelCase(focused_window.window_class), sys.argv.index('application_colors'))
 
     if ('title_colors' in sys.argv):
-        title_text = formatText(stripClassFromTitle(focused_window.window_title), argOffset)
+        title_text = formatText(stripClassFromTitle(focused_window.window_title), sys.argv.index('title_colors'))
 
     if (showApplication): return application_text
     if (showTitle): return title_text
@@ -87,15 +84,15 @@ def stripClassFromTitle(title):
 
 # Make sure a specified string is in CamelCase format
 def to_CamelCase(str):
-    return ' '.join([t.title() for t in str.split()])
+    return ''.join([t.title() for t in str.split()])
 
-# Don't like glabal variables. So, I pass in argOffset
+# Add background & foreground color formatting, to a specified string
 def formatText(str, argoffset):
     return ''.join(['%{B',
-                    sys.argv[3 + argoffset],
+                    sys.argv[argoffset + 1],
                     '}',
                     '%{F',
-                    sys.argv[4 + argoffset],
+                    sys.argv[argoffset + 2],
                     '}',
                     ' ',
                     str,
