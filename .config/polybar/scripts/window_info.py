@@ -82,10 +82,10 @@ def on_window_title(i3, e):
     print(get_window_info(e))
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--application", action="store_true")
-parser.add_argument("--title", action="store_true")
-parser.add_argument("--application_colors", nargs=2)
-parser.add_argument("--title_colors", nargs=2)
+parser.add_argument("--application", action="store_true", help="Displays ONLY the foreground windows' Application name.")
+parser.add_argument("--title", action="store_true", help="Displays ONLY the foreground windows' Title.")
+parser.add_argument("--application_colors", nargs=2, help="Override the background & foreground colors, of the displayed text.  Colors must be specified in hex format.")
+parser.add_argument("--title_colors", nargs=2, help="Override the background & foreground colors, of the displayed text.  Colors must be specified in hex format.")
 args = parser.parse_args()
     
 i3 = i3ipc.Connection()
