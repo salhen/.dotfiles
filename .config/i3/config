@@ -147,7 +147,7 @@ bindsym $mod+r mode "resize"
 
 
 # set default colors
-set $bg-color				#000000
+set $bg-color				#ff6347
 set $inactive-bg-color		#2f343f
 set $text-color				#ffffff
 set $inactive-text-color	#676E7D
@@ -225,6 +225,7 @@ for_window [class="VirtualBox Machine"] floating enabled
 for_window [class="vlc"] floating enable
 for_window [class="x-terminal-emulator"] floating enable
 for_window [class="XTerm"] floating enable
+for_window [class="Io.elementary.photos"] floating enable
 
 # resize specific windows
 for_window [class="Alacritty"] resize set 900 500
