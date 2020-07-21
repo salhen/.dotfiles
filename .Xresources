@@ -1,0 +1,15 @@
+*.color0:       #546e7a
+*.color1:       #ffffff
+
+! Tomato
+*.color2:       #ff6347
+! Tomato_comp
+*.color3:       #ff9147
+! Tomato_comp2
+*.color4:       #e69e6e
+
+! Dot
+*.color5:		#de9d91
+
+! Red
+*.color6:       #c70039
