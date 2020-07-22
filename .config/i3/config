@@ -145,7 +145,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
 # set default colors
 set_from_resource $bg-color color2 #ff0000
 set_from_resource $text-color color1 #ffffff
@@ -159,15 +158,12 @@ client.unfocused		$inactive-bg-color	$inactive-bg-color	$inactive-text-color	#00
 client.focused_inactive	$inactive-bg-color	$inactive-bg-color	$inactive-text-color	#00ff00
 client.urgent			$urgent-bg-color	$urgent-bg-color	$text-color          	#00ff00
 client.placeholder      $bg-color			$bg-color 			$text-color				#00ff00
-
 client.background		$bg-color
-
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb black -sb tomato -fn 'System San Francisco Display:size=10'
 
 # kill focused window
-# bindsym $mod+Shift+q kill
 bindsym $mod+F4 kill
 
 # The middle button over a titlebar kills the window
@@ -245,35 +241,27 @@ bindsym $mod+p exec ~/.config/polybar/scripts/power.sh &
 # window selector
 bindsym $mod+Tab exec ~/.config/polybar/scripts/windowselector.sh &
 
-# Until I can figure out how to get the graphical minutupdate(r) to work. Go this manual update script.
-bindsym $mod+u exec i3-sensible-terminal -e ~/.config/polybar/scripts/systemupdate.sh &
-
 # open an empty window container
 #bindsym $mod+z exec i3-msg open
 
 # Take a screenshot
 bindsym Print exec spectacle &
 
-exec --no-startup-id mpd &
+set $exec exec --no-startup-id
+set $exec_always  exec_always --no-startup-id
 
-exec --no-startup-id compton &
+$exec mpd &
 
-exec_always --no-startup-id feh --bg-center ~/Pictures/149807-orange-and-black-background-1920x1080-full-hd.jpg &
+$exec_always feh --bg-center ~/Pictures/149807-orange-and-black-background-1920x1080-full-hd.jpg &
+$exec_always ~/.config/polybar/launch.sh &
 
-exec_always --no-startup-id ~/.config/polybar/launch.sh &
-
-exec --no-startup-id mintupdate-launcher &
-
-exec --no-startup-id nm-applet &
+$exec mintupdate-launcher &
+$exec nm-applet &
 
 # A fix to get it to ask for sudo password when launching apps like mintupdate from the systray
 # sudo apt install policykit-desktop-privileges
 # sudo apt install policykit-1-gnome
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+$exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
-# Makes me sad this doesn't work.  But, if you do this, every new instance of Chrome
-# you open while this instance is open, will have the class name Netflix.
-# exec --no-startup-id google-chrome --class=Netflix https://www.netflix.com &
-
-exec --no-startup-id google-chrome https://www.netflix.com&
-exec --no-startup-id ~/.config/polybar/scripts/netflixit.sh
+$exec google-chrome https://www.netflix.com &
+$exec ~/.config/polybar/scripts/netflixit.sh
